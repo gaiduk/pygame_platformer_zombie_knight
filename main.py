@@ -137,17 +137,18 @@ class Game():
                     self.zombie_group.add(zombie)
 
     def check_round_complition(self):
-        if self.round_time == 0:
+        if self.round_time <= 0:
             self.start_new_round()
 
     def check_game_over(self):
         if self.player.health <= 0:
             pygame.mixer.music.stop()
             self.pause_game("GAME OVER! Score: " + str(self.score), "Press 'ENTER' to try again... ")
+            self.score = 0
+            self.reset_game()
 
     def start_new_round(self):
         self.round_number += 1
-
         self.round_time = self.STARING_ROUND_TIME + self.round_number + 2
         self.zombie_group.empty()
         self.ruby_group.empty()
@@ -155,7 +156,7 @@ class Game():
         self.player.reset()
 
         self.pause_game("You survived the night! Score: " + str(self.score), "Press 'ENTER' to continue... ")
-        self.reset_game()
+
 
 
     def pause_game(self, main_text, sub_text):
@@ -198,7 +199,7 @@ class Game():
                     pygame.mixer.music.stop()
 
     def reset_game(self):
-        self.score = 0
+
         self.round_time = self.STARING_ROUND_TIME
         self.round_time = 1
 
@@ -495,7 +496,6 @@ class Player(pygame.sprite.Sprite):
         self.animate_fire = True
 
     def reset(self):
-        self.velocity = (0, 0)
         self.position = vector(self.starting_x, self.starting_y)
         self.rect.bottomleft = self.position
 
