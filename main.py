@@ -201,7 +201,7 @@ class Game():
     def reset_game(self):
 
         self.round_time = self.STARING_ROUND_TIME
-        self.round_time = 1
+        self.round_number = 1
 
         self.zombie_creation_time = self.STARING_ZOMBIE_CREATION_TIME
 
